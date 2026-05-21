@@ -1,0 +1,824 @@
+<!DOCTYPE html>
+<html lang="mn">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Adidas Mongolia</title>
+  <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Barlow:wght@300;400;600;700;900&display=swap" rel="stylesheet"/>
+  <style>
+/* ════════════════════════════════════════
+   ZAK ADIDAS MONGOLIA — BD2 Shared CSS
+════════════════════════════════════════ */
+:root {
+  --black: #000;
+  --white: #fff;
+  --red:   #c8102e;
+  --gray1: #f5f5f5;
+  --gray2: #e8e8e8;
+  --font-d: 'Bebas Neue', sans-serif;
+  --font-b: 'Barlow', sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+body { font-family: var(--font-b); background: var(--white); overflow-x: hidden; }
+.container { max-width: 1200px; margin: 0 auto; padding: 0 1.5rem; }
+
+/* ── HEADER ── */
+.header {
+  position: fixed; top: 0; width: 100%; height: 70px;
+  background: var(--black); display: flex; align-items: center; z-index: 1000;
+  transition: box-shadow .3s;
+}
+.header.scrolled { box-shadow: 0 2px 20px rgba(200,16,46,.35); }
+.nav { display: flex; justify-content: space-between; width: 100%; align-items: center; }
+.logo-img { height: 28px; filter: invert(1); }
+.nav-links { display: flex; gap: 0; list-style: none; }
+.nav-links a {
+  display: block; padding: 0 22px; line-height: 70px;
+  color: #999; text-decoration: none;
+  text-transform: uppercase; font-weight: 700; font-size: .78rem;
+  letter-spacing: 1px; transition: color .2s; position: relative; cursor: pointer;
+}
+.nav-links a::after {
+  content: ''; position: absolute; bottom: 0; left: 22px; right: 22px;
+  height: 3px; background: var(--red); transform: scaleX(0); transition: transform .25s;
+}
+.nav-links a:hover { color: var(--white); }
+.nav-links a.active { color: var(--white); }
+.nav-links a.active::after { transform: scaleX(1); }
+
+/* Hamburger */
+.hamburger { display: none; flex-direction: column; gap: 5px; cursor: pointer; padding: 6px; }
+.hamburger span { display: block; width: 24px; height: 2px; background: var(--white); transition: .3s; }
+.hamburger.open span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.hamburger.open span:nth-child(2) { opacity: 0; }
+.hamburger.open span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+/* ── PAGES ── */
+.page { display: none; }
+.page.active { display: block; }
+
+/* ── SHARED ── */
+.section { padding: 5rem 0; }
+.section-dark { background: #111; color: var(--white); }
+.sec-label {
+  display: inline-block; background: var(--red); color: var(--white);
+  font-size: .65rem; font-weight: 900; letter-spacing: 3px;
+  text-transform: uppercase; padding: 4px 12px; margin-bottom: .8rem;
+}
+.sec-title { font-family: var(--font-d); font-size: 3rem; margin-bottom: 2.2rem; }
+
+.btn { display: inline-block; padding: 13px 30px; font-weight: 900; text-transform: uppercase; letter-spacing: 2px; font-size: .8rem; cursor: pointer; text-decoration: none; transition: .22s; border: none; font-family: var(--font-b); }
+.btn-red  { background: var(--red); color: var(--white); }
+.btn-red:hover  { background: #a00d25; }
+.btn-dark { background: var(--black); color: var(--white); }
+.btn-dark:hover { background: #333; }
+.btn-out  { background: transparent; color: var(--white); border: 2px solid rgba(255,255,255,.6); }
+.btn-out:hover  { background: var(--white); color: var(--black); }
+
+/* ── FOOTER ── */
+.footer { background: var(--black); color: #555; padding: 4rem 0 0; }
+.footer-grid { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 3rem; padding-bottom: 3rem; }
+.footer-brand img { height: 26px; filter: invert(1); margin-bottom: 1rem; }
+.footer-brand p { font-size: .88rem; line-height: 1.7; color: #555; }
+.footer h5 { font-family: var(--font-d); font-size: 1.1rem; color: var(--white); margin-bottom: 1rem; letter-spacing: 1px; }
+.footer ul { list-style: none; }
+.footer ul li { margin-bottom: .5rem; }
+.footer ul a { color: #555; text-decoration: none; font-size: .88rem; transition: color .2s; cursor: pointer; }
+.footer ul a:hover { color: var(--red); }
+.footer-contact p { color: #555; font-size: .88rem; margin-bottom: .5rem; }
+.footer-contact a { color: #555; text-decoration: none; transition: color .2s; }
+.footer-contact a:hover { color: var(--red); }
+.footer-bottom { border-top: 1px solid #1a1a1a; padding: 1.5rem 0; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+.footer-bottom p { font-size: .8rem; }
+
+/* ── HOME — CAROUSEL ── */
+.carousel-wrap { position: relative; overflow: hidden; }
+.carousel-track { display: flex; transition: transform .65s cubic-bezier(.77,0,.175,1); }
+.c-slide {
+  min-width: 100%; height: 520px;
+  display: flex; align-items: flex-end;
+  background-size: cover; background-position: center top; position: relative;
+}
+.c-slide::before {
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(to top, rgba(0,0,0,.85) 0%, rgba(0,0,0,.05) 60%, transparent 100%);
+}
+.c-caption { position: relative; z-index: 2; padding: 3rem; max-width: 580px; }
+.c-caption h2 { font-family: var(--font-d); font-size: 4rem; color: var(--white); line-height: 1; }
+.c-caption p  { color: rgba(255,255,255,.72); margin: .6rem 0 1.4rem; font-size: 1rem; }
+.c-ctrl {
+  position: absolute; top: 50%; transform: translateY(-50%);
+  background: rgba(0,0,0,.5); color: var(--white); border: none;
+  width: 46px; height: 46px; font-size: 1.3rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: background .2s; z-index: 10; border-radius: 4px;
+}
+.c-ctrl:hover { background: var(--red); }
+.c-prev { left: 1.2rem; }
+.c-next { right: 1.2rem; }
+.c-dots { display: flex; justify-content: center; gap: 8px; padding: 16px 0 0; }
+.c-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--gray2); border: none; cursor: pointer; transition: .2s; }
+.c-dot.active { background: var(--red); transform: scale(1.4); }
+
+/* HOME — Strip */
+.strip {
+  background: var(--red); color: var(--white); padding: 1rem 0;
+  display: flex; justify-content: center; gap: 3rem; flex-wrap: wrap;
+  font-weight: 700; font-size: .82rem; letter-spacing: 1px; text-transform: uppercase;
+}
+
+/* HOME — Featured */
+.feat-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; }
+.feat-big  { grid-row: span 2; position: relative; border-radius: 8px; overflow: hidden; min-height: 500px; background-size: cover; background-position: center; }
+.feat-sm   { position: relative; border-radius: 8px; overflow: hidden; min-height: 235px; background-size: cover; background-position: center; }
+.feat-big::before, .feat-sm::before { content: ''; position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,.75) 0%, transparent 60%); }
+.feat-txt  { position: absolute; bottom: 0; left: 0; right: 0; padding: 1.8rem; z-index: 2; color: var(--white); }
+.feat-txt h3 { font-family: var(--font-d); font-size: 2rem; }
+.feat-txt p  { font-size: .85rem; opacity: .8; margin: .3rem 0 1rem; }
+
+/* HOME — Stats */
+.stats-row { display: grid; grid-template-columns: repeat(4,1fr); gap: 1px; background: #222; border-radius: 8px; overflow: hidden; }
+.stat-box  { background: #1a1a1a; padding: 2.5rem 1rem; text-align: center; }
+.stat-num  { font-family: var(--font-d); font-size: 3.5rem; color: var(--red); }
+.stat-lbl  { font-size: .78rem; color: #888; text-transform: uppercase; letter-spacing: 1px; margin-top: .3rem; }
+
+/* ── PRODUCTS — TAB ── */
+.products-hero { background: linear-gradient(135deg, #111 0%, #1a0008 100%); padding: 120px 0 50px; color: var(--white); text-align: center; }
+.products-hero h1 { font-family: var(--font-d); font-size: 4.5rem; }
+.products-hero p  { opacity: .6; margin-top: .5rem; }
+
+.tab-bar { display: flex; border-bottom: 3px solid var(--gray2); margin-bottom: 2.5rem; flex-wrap: wrap; }
+.tab-btn {
+  background: none; border: none; padding: 14px 28px;
+  font-family: var(--font-b); font-weight: 700; font-size: .88rem;
+  text-transform: uppercase; letter-spacing: 1px; cursor: pointer;
+  color: #888; transition: .2s; border-bottom: 3px solid transparent; margin-bottom: -3px;
+}
+.tab-btn.active { color: var(--black); border-bottom-color: var(--red); }
+.tab-btn:hover  { color: var(--black); }
+.tab-panel { display: none; }
+.tab-panel.active { display: block; animation: fadeUp .3s ease; }
+@keyframes fadeUp { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
+
+.products-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px,1fr)); gap: 2rem; }
+.p-card { background: var(--white); border-radius: 8px; overflow: hidden; box-shadow: 0 2px 16px rgba(0,0,0,.08); transition: transform .3s; }
+.p-card:hover { transform: translateY(-8px); }
+.p-img { height: 290px; background-size: cover; background-position: center; background-color: #f5f5f5; transition: transform .5s; overflow: hidden; }
+.p-card:hover .p-img { transform: scale(1.05); }
+.p-info { padding: 1.3rem; }
+.p-tag  { background: var(--red); color: var(--white); padding: 2px 9px; font-size: .68rem; font-weight: 900; text-transform: uppercase; border-radius: 2px; }
+.p-info h4 { font-family: var(--font-d); font-size: 1.45rem; margin: .5rem 0 .2rem; }
+.p-info p  { color: #777; font-size: .83rem; margin-bottom: .8rem; }
+.p-price   { font-weight: 900; font-size: 1.1rem; }
+.p-old  { text-decoration: line-through; color: #aaa; font-size: .9rem; margin-right: .4rem; }
+.p-sale { color: var(--red); font-weight: 900; font-size: 1.1rem; }
+
+/* ── ABOUT — ── */
+.about-hero {
+  position: relative; height: 420px;
+  background: linear-gradient(135deg,#111 0%,#2a000f 100%);
+  display: flex; align-items: center; justify-content: center; padding-top: 70px;
+}
+.about-hero::before { content: ''; position: absolute; inset: 0; background: rgba(0,0,0,.3); }
+.about-hero-txt { position: relative; z-index: 2; text-align: center; color: var(--white); padding: 0 1rem; }
+.about-hero-txt h1 { font-family: var(--font-d); font-size: 4.5rem; }
+.about-hero-txt p  { font-size: 1.1rem; opacity: .75; margin-top: .7rem; max-width: 600px; }
+
+.about-body { padding: 5rem 0; }
+.about-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 4rem; align-items: start; }
+.about-text h2 { font-family: var(--font-d); font-size: 2.8rem; margin-bottom: 1.5rem; }
+.about-text p  { line-height: 1.85; color: #444; margin-bottom: 1.2rem; font-size: 1rem; }
+.about-quote { border-left: 4px solid var(--red); padding: 1.2rem 1.5rem; background: var(--gray1); border-radius: 0 6px 6px 0; margin: 1.5rem 0; }
+.about-quote p { color: #222; font-weight: 600; margin: 0; line-height: 1.7; }
+
+.about-imgs { display: flex; flex-direction: column; gap: 1rem; }
+.about-img-main { height: 320px; border-radius: 8px; background: linear-gradient(135deg,#c8102e,#000); background-size: cover; background-position: center; }
+.about-img-row  { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+.about-img-sm   { height: 170px; border-radius: 8px; background-size: cover; background-position: center; }
+
+/* FAQ */
+.faq-list { display: flex; flex-direction: column; gap: 1rem; }
+.faq-item { border: 1px solid var(--gray2); border-radius: 8px; overflow: hidden; }
+.faq-hdr {
+  display: flex; justify-content: space-between; align-items: center;
+  padding: 1.2rem 1.5rem; cursor: pointer; background: var(--white); transition: background .2s;
+}
+.faq-hdr:hover { background: var(--gray1); }
+.faq-hdr h4 { font-family: var(--font-d); font-size: 1.25rem; }
+.faq-icon {
+  width: 28px; height: 28px; border-radius: 50%; background: var(--black);
+  color: var(--white); display: flex; align-items: center; justify-content: center;
+  font-size: 1.1rem; font-weight: 700; flex-shrink: 0; transition: transform .3s, background .2s;
+}
+.faq-item.open .faq-icon { transform: rotate(45deg); background: var(--red); }
+.faq-body { max-height: 0; overflow: hidden; padding: 0 1.5rem; background: var(--gray1); transition: max-height .45s cubic-bezier(.77,0,.175,1), padding .3s; }
+.faq-item.open .faq-body { max-height: 300px; padding: 1.4rem 1.5rem; }
+.faq-body p { line-height: 1.75; color: #444; font-size: .95rem; }
+
+/* Team */
+.team-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px,1fr)); gap: 2rem; margin-top: 3rem; }
+.team-card { text-align: center; }
+.team-avatar { width: 110px; height: 110px; border-radius: 50%; margin: 0 auto 1rem; background-size: cover; background-position: center top; background-color: #eee; border: 4px solid var(--gray2); transition: border-color .2s; display:flex; align-items:center; justify-content:center; font-size:2.5rem; }
+.team-card:hover .team-avatar { border-color: var(--red); }
+.team-card h4 { font-family: var(--font-d); font-size: 1.3rem; }
+.team-card p  { color: #888; font-size: .82rem; margin-top: .2rem; }
+
+/* ── AJAX ── */
+.ajax-controls { display: flex; gap: 1rem; margin-bottom: 2rem; flex-wrap: wrap; }
+.ajax-spinner {
+  display: none; margin: 2.5rem auto; width: 40px; height: 40px;
+  border: 4px solid #333; border-top-color: var(--red);
+  border-radius: 50%; animation: spin .7s linear infinite;
+}
+@keyframes spin { to { transform: rotate(360deg); } }
+.ajax-msg { color: #666; text-align: center; padding: 2rem; display: none; font-size: .95rem; }
+.ajax-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(300px, 1fr)); gap: 1.5rem; }
+.news-card {
+  background: #1a1a1a; border-radius: 8px; overflow: hidden;
+  display: flex; flex-direction: column;
+  border: 1px solid #2a2a2a; transition: border-color .2s, transform .2s;
+}
+.news-card:hover { border-color: var(--red); transform: translateY(-4px); }
+.news-card-img { height: 180px; background-size: cover; background-position: center top; background-color: #222; display:flex; align-items:center; justify-content:center; font-size:3rem; }
+.news-card-body { padding: 1.2rem; flex: 1; display: flex; flex-direction: column; }
+.news-cat { font-size: .68rem; font-weight: 900; color: var(--red); text-transform: uppercase; letter-spacing: 2px; }
+.news-card-body h4 { font-family: var(--font-d); font-size: 1.35rem; color: var(--white); margin: .4rem 0 .5rem; }
+.news-card-body p  { color: #888; font-size: .85rem; line-height: 1.6; flex: 1; }
+.news-date { font-size: .75rem; color: #555; margin-top: .8rem; }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed; bottom: 2rem; right: 2rem; background: var(--black);
+  color: var(--white); padding: .9rem 1.5rem; border-radius: 6px; z-index: 9999;
+  font-size: .85rem; font-weight: 700; border-left: 4px solid var(--red);
+  transform: translateY(100px); opacity: 0; transition: .3s;
+}
+.toast.show { transform: translateY(0); opacity: 1; }
+
+/* ── RESPONSIVE ── */
+@media (max-width: 900px) {
+  .feat-grid { grid-template-columns: 1fr; }
+  .feat-big  { grid-row: span 1; min-height: 300px; }
+  .about-grid { grid-template-columns: 1fr; }
+  .about-imgs { display: none; }
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 768px) {
+  .hamburger { display: flex; }
+  .nav-links {
+    display: none; flex-direction: column; list-style: none;
+    position: absolute; top: 70px; left: 0; width: 100%;
+    background: #111; padding: 0 1.5rem 1rem;
+    border-top: 2px solid var(--red); z-index: 999;
+  }
+  .nav-links.open { display: flex; }
+  .nav-links li   { border-bottom: 1px solid #1f1f1f; }
+  .nav-links a    { line-height: 1; padding: 15px 0; }
+  .nav-links a::after { display: none; }
+  .nav-links a.active, .nav-links a:hover { color: var(--red) !important; }
+  .c-slide  { height: 340px; }
+  .c-caption h2 { font-size: 2.6rem; }
+  .products-hero h1 { font-size: 3rem; }
+  .about-hero-txt h1 { font-size: 3rem; }
+  .stats-row { grid-template-columns: 1fr 1fr; }
+  .footer-grid { grid-template-columns: 1fr; gap: 2rem; }
+  .strip { gap: 1.2rem; font-size: .75rem; padding: .8rem 1rem; }
+}
+  </style>
+</head>
+<body>
+
+<div class="toast" id="toast"></div>
+
+<header class="header" id="header">
+  <nav class="nav container">
+    <a onclick="showPage('home')" style="display:flex;align-items:center;cursor:pointer;">
+      <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" alt="Adidas" class="logo-img"/>
+    </a>
+    <ul class="nav-links" id="navLinks">
+      <li><a onclick="showPage('home')"     data-page="home"     class="active">Нүүр</a></li>
+      <li><a onclick="showPage('products')" data-page="products">Бүтээгдэхүүн</a></li>
+      <li><a onclick="showPage('about')"    data-page="about">Бидний тухай</a></li>
+    </ul>
+    <div class="hamburger" id="hamburger">
+      <span></span><span></span><span></span>
+    </div>
+  </nav>
+</header>
+
+<div class="page active" id="page-home">
+
+  <div style="padding-top:70px; position:relative;">
+    <div class="carousel-wrap">
+      <div class="carousel-track" id="cTrack">
+
+        <div class="c-slide" style="background:linear-gradient(135deg,#0a0a0a 0%,#1a0008 50%,#0a0a0a 100%);">
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-end;padding-right:8%;opacity:.12;font-size:22rem;font-family:'Bebas Neue',sans-serif;color:#c8102e;line-height:1;pointer-events:none;overflow:hidden;">UB5</div>
+          <div class="c-caption">
+            <h2>ULTRABOOST 5</h2>
+            <p>Гүйлтийн хамгийн дэвшилтэт технологи — Монголд ирлээ</p>
+            <button class="btn btn-red" onclick="showPage('products')">Бүтээгдэхүүн харах</button>
+          </div>
+        </div>
+
+        <div class="c-slide" style="background:linear-gradient(135deg,#111 0%,#1c1c00 50%,#111 100%);">
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-end;padding-right:6%;opacity:.1;font-size:18rem;font-family:'Bebas Neue',sans-serif;color:#fff;line-height:1;pointer-events:none;overflow:hidden;">SAMBA</div>
+          <div class="c-caption">
+            <h2>SAMBA OG</h2>
+            <p>70-аад оны классик загвар — Originals цуглуулга</p>
+            <button class="btn btn-red" onclick="showPage('products')">Дэлгэрэнгүй</button>
+          </div>
+        </div>
+
+        <div class="c-slide" style="background:linear-gradient(135deg,#050010 0%,#0d001a 50%,#050010 100%);">
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:flex-end;padding-right:5%;opacity:.08;font-size:14rem;font-family:'Bebas Neue',sans-serif;color:#c8102e;line-height:1;pointer-events:none;overflow:hidden;">EVO SL</div>
+          <div class="c-caption">
+            <h2>ADIZERO EVO SL</h2>
+            <p>Race day — Хурдны гутал — ₮450,000</p>
+            <button class="btn btn-red" onclick="showPage('products')">Захиалах</button>
+          </div>
+        </div>
+
+        <div class="c-slide" style="background:linear-gradient(135deg,#0a0005 0%,#1a0010 50%,#0a0005 100%);">
+          <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;opacity:.06;font-size:11rem;font-family:'Bebas Neue',sans-serif;color:#fff;line-height:1;pointer-events:none;overflow:hidden;text-align:center;">IMPOSSIBLE IS NOTHING</div>
+          <div class="c-caption">
+            <h2>IMPOSSIBLE IS<br/>NOTHING</h2>
+            <p>Монголын Албан ёсны Дистрибьютор — 2010 оноос</p>
+            <button class="btn btn-out" onclick="showPage('about')">Бидний тухай</button>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <button class="c-ctrl c-prev" id="cPrev">&#8592;</button>
+    <button class="c-ctrl c-next" id="cNext">&#8594;</button>
+  </div>
+  <div class="c-dots" id="cDots"></div>
+
+  <div class="strip">
+    <span> 1–2 хоногт хүргэлт</span>
+    <span> 100% Оригинал</span>
+    <span> 14 хоногт буцаах</span>
+    <span> +976 94665594</span>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="sec-label">Онцлох</div>
+      <h2 class="sec-title">Шилдэг Цуглуулга</h2>
+      <div class="feat-grid">
+        <div class="feat-big" style="background-image: url('https://images.unsplash.com/photo-1556821840-3a63f95609a7?q=80&w=600&auto=format&fit=crop');">
+          <div class="feat-txt">
+            <h3>MEN PERFORMANCE</h3>
+            <p>Тамирчдын хэрэгцээнд зориулсан шинэ цуглуулга</p>
+            <button class="btn btn-red" style="padding:10px 22px;font-size:.75rem;" onclick="showPage('products');setTab('men')">Үзэх</button>
+          </div>
+        </div>
+        <div class="feat-sm" style="background-image: url('https://images.unsplash.com/photo-1518310383802-640c2de311b2?q=80&w=600&auto=format&fit=crop');">
+          <div class="feat-txt">
+            <h3>WOMEN</h3>
+            <p>Optime цуглуулга</p>
+            <button class="btn btn-dark" style="padding:9px 18px;font-size:.73rem;" onclick="showPage('products');setTab('women')">Үзэх</button>
+          </div>
+        </div>
+        <div class="feat-sm" style="background-image: url('stan.avif');">
+          <div class="feat-txt">
+            <h3>ORIGINALS</h3>
+            <p>Stan Smith · Samba · Gazelle</p>
+            <button class="btn btn-dark" style="padding:9px 18px;font-size:.73rem;" onclick="showPage('products');setTab('originals')">Үзэх</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark">
+    <div class="container">
+      <div class="sec-label">Тоо баримт</div>
+      <h2 class="sec-title">Бидний Амжилт</h2>
+      <div class="stats-row">
+        <div class="stat-box"><div class="stat-num">16+</div><div class="stat-lbl">Жилийн туршлага</div></div>
+        <div class="stat-box"><div class="stat-num">50+</div><div class="stat-lbl">Бүтээгдэхүүний төрөл</div></div>
+        <div class="stat-box"><div class="stat-num">12K+</div><div class="stat-lbl">Хэрэглэгчид</div></div>
+        <div class="stat-box"><div class="stat-num">1</div><div class="stat-lbl">Албан ёсны дистрибьютор</div></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section section-dark" style="padding-top:0;">
+    <div class="container">
+      <div class="sec-label"></div>
+      <h2 class="sec-title">Спортын Мэдээ</h2>
+      <div class="ajax-controls">
+        <button class="btn btn-red" id="ajaxLoad"> Мэдээ татах</button>
+        <button class="btn btn-out" id="ajaxClear">✕ Цэвэрлэх</button>
+      </div>
+      <div class="ajax-spinner" id="ajaxSpinner"></div>
+      <p class="ajax-msg" id="ajaxMsg" style="display:block;">↑ Дээрх товчийг дарж мэдээг татна уу.</p>
+      <div class="ajax-grid" id="newsContainer"></div>
+    </div>
+  </section>
+
+</div><div class="page" id="page-products">
+
+  <div class="products-hero">
+    <div class="container">
+      <h1>Бүтээгдэхүүн</h1>
+      <p>Adidas-ын бүх цуглуулга нэг дор</p>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="container">
+      <div class="tab-bar" id="tabBar">
+        <button class="tab-btn active" data-tab="men"> Эрэгтэй</button>
+        <button class="tab-btn" data-tab="women"> Эмэгтэй</button>
+        <button class="tab-btn" data-tab="originals"> Originals</button>
+        <button class="tab-btn" data-tab="sale"> Хямдрал</button>
+      </div>
+
+      <div class="tab-panel active" id="tab-men">
+        <div class="products-grid">
+          <div class="p-card">
+            <div class="p-img" style="background-image: url('ultra\ .png');"></div>
+            <div class="p-info">
+              <span class="p-tag">Шинэ</span>
+              <h4>Ultraboost 5</h4>
+              <p>Гүйлтийн хамгийн дэвшилтэт гутал</p>
+              <div class="p-price">₮ 520,000</div>
+              <button class="btn btn-red" style="margin-top:.8rem;padding:10px 20px;font-size:.75rem;width:100%;" onclick="addToCart('Ultraboost 5')">Сагсанд нэмэх</button>
+            </div>
+          </div>
+          <div class="p-card">
+            <div class="p-img" style="background-image: url('evo.jpeg');"></div>
+            <div class="p-info">
+              <span class="p-tag">Алдартай</span>
+              <h4>Adizero Evo SL</h4>
+              <p>Уралдааны гутал — хурдны шийдэл</p>
+              <div class="p-price">₮ 450,000</div>
+              <button class="btn btn-red" style="margin-top:.8rem;padding:10px 20px;font-size:.75rem;width:100%;" onclick="addToCart('Adizero Evo SL')">Сагсанд нэмэх</button>
+            </div>
+          </div>
+          <div class="p-card">
+            <div class="p-img" style="background-image: url('pre.jpeg');"></div>
+            <div class="p-info">
+              <span class="p-tag">Спорт</span>
+              <h4>Predator 24</h4>
+              <p>Хөлбөмбөгийн гутал</p>
+              <div class="p-price">₮ 380,000</div>
+              <button class="btn btn-red" style="margin-top:.8rem;padding:10px 20px;font-size:.75rem;width:100%;" onclick="addToCart('Predator 24')">Сагсанд нэмэх</button>
+            </div>
+          </div>
+          <div class="p-card">
+            <div class="p-img" style="background-image: url('tiro.jpg');"></div>
+            <div class="p-info">
+              <span class="p-tag">Хувцас</span>
+              <h4>Tiro 24 Jersey</h4>
+              <p>Тамирын цамц — Эрэгтэй</p>
+              <div class="p-price">₮ 85,000</div>
+              <button class="btn btn-red" style="margin-top:.8rem;padding:10px 20px;font-size:.75rem;width:100%;" onclick="addToCart('Tiro 24 Jersey')">Сагсанд нэмэх</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-women">
+        <div class="products-grid">
+          <div class="p-card">
+            <div class="p-img" style="background-image: url('pure.webp');"></div>
+            <div class="p-info">
+              <span class="p-tag">Шинэ</span>
+              <h4>Pureboost 23</h4>
+              <p>Эмэгтэй гүйлтийн гутал</p>
+              <div class="p-price">₮ 420,000</div>
+              <button class="btn btn-red" style="margin-top:.8rem;padding:10px 20px;font-size:.75rem;width:100%;" onclick="addToCart('Pureboost 23')">Сагсанд нэмэх</button>
+            </div>
+          </div>
+          <div class="p-card">
+            <div class="p-img" style="background-image: url('opt.webp');"></div>
+            <div class="p-info">
+              <span class="p-tag">Алдартай</span>
+              <h4>Optime Leggings</h4>
+              <p>Yoga & Training — Optime цуглуулга</p>
+              <div class="p-price">₮ 120,000</div>
+              <button class="btn btn-red" style="margin-top:.8rem;padding:10px 20px;font-size:.75rem;width:100%;" onclick="addToCart('Optime Leggings')">Сагсанд нэмэх</button>
+            </div>
+          </div>
+          <div class="p-card">
+            <div class="p-img" style="background-image: url('W.jpg');"></div>
+            <div class="p-info">
+              <span class="p-tag">Спорт</span>
+              <h4>Runfalcon 3.0 W</h4>
+              <p>Өдрийн зориулалттай гутал</p>
+              <div class="p-price">₮ 195,000</div>
+              <button class="btn btn-red" style="margin-top:.8rem;padding:10px 20px;font-size:.75rem;width:100%;" onclick="addToCart('Runfalcon 3.0 W')">Сагсанд нэмэх</button>
+            </div>
+          </div>
+          <div class="p-card">
+            <div class="p-img" style="background-image: url('https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?q=80&w=500&auto=format&fit=crop');"></div>
+            <div class="p-info">
+              <span class="p-tag">Хувцас</span>
+              <h4>Essentials Tee W</h4>
+              <p>Тав тухтай өдөр тутмын цамц</p>
+              <div class="p-price">₮ 72,000</div>
+              <button class="btn btn-red" style="margin-top:.8rem;padding:10px 20px;font-size:.75rem;width:100%;" onclick="addToCart('Essentials Tee W')">Сагсанд нэмэх</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-originals">
+        <div class="products-grid">
+          <div class="p-card">
+            <div class="p-img" style="background-image: url('stan.avif');"></div>
+            <div class="p-info">
+              <span class="p-tag">Классик</span>
+              <h4>Stan Smith</h4>
+              <p>Дэлхийд хамгийн алдартай тенисний гутал</p>
+              <div class="p-price">₮ 230,000</div>
+              <button class="btn btn-red" style="margin-top:.8rem;padding:10px 20px;font-size:.75rem;width:100%;" onclick="addToCart('Stan Smith')">Сагсанд нэмэх</button>
+            </div>
+          </div>
+          <div class="p-card">
+            <div class="p-img" style="background-image: url('og.avif');"></div>
+            <div class="p-info">
+              <span class="p-tag">Тренд</span>
+              <h4>Samba OG</h4>
+              <p>70-аад оны классик — дахин моодонд орлоо</p>
+              <div class="p-price">₮ 270,000</div>
+              <button class="btn btn-red" style="margin-top:.8rem;padding:10px 20px;font-size:.75rem;width:100%;" onclick="addToCart('Samba OG')">Сагсанд нэмэх</button>
+            </div>
+          </div>
+          <div class="p-card">
+            <div class="p-img" style="background-image: url('gaz.jpg.avif');"></div>
+            <div class="p-info">
+              <span class="p-tag">Классик</span>
+              <h4>Gazelle</h4>
+              <p>Suede дээр суурилсан цаг үл хожигдох загвар</p>
+              <div class="p-price">₮ 245,000</div>
+              <button class="btn btn-red" style="margin-top:.8rem;padding:10px 20px;font-size:.75rem;width:100%;" onclick="addToCart('Gazelle')">Сагсанд нэмэх</button>
+            </div>
+          </div>
+          <div class="p-card">
+            <div class="p-img" style="background-image: url('low.jpeg');"></div>
+            <div class="p-info">
+              <span class="p-tag">Шинэ</span>
+              <h4>Forum Low</h4>
+              <p>Basketball-аас fashion хүртэл</p>
+              <div class="p-price">₮ 255,000</div>
+              <button class="btn btn-red" style="margin-top:.8rem;padding:10px 20px;font-size:.75rem;width:100%;" onclick="addToCart('Forum Low')">Сагсанд нэмэх</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="tab-panel" id="tab-sale">
+        <div class="products-grid">
+          <div class="p-card">
+            <div class="p-img" style="background-image: url('star.jpg');"></div>
+            <div class="p-info">
+              <span class="p-tag">Хямдрал</span>
+              <h4>Superstar Classic</h4>
+              <p>Хуучин загварын онцгой хямдрал</p>
+              <div class="p-price"><span class="p-old">₮ 210,000</span> <span class="p-sale">₮ 149,000</span></div>
+              <button class="btn btn-red" style="margin-top:.8rem;padding:10px 20px;font-size:.75rem;width:100%;" onclick="addToCart('Superstar Classic')">Сагсанд нэмэх</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+
+<div class="page" id="page-about">
+  <div class="about-hero">
+    <div class="about-hero-txt">
+      <h1>Бидний Тухай</h1>
+      <p>Спортоор дамжуулан бид амьдралыг өөрчлөх хүчтэй</p>
+    </div>
+  </div>
+
+  <section class="container about-body">
+    <div class="about-grid">
+      <div class="about-text">
+        <h2>Хязгааргүй Тэмүүлэл</h2>
+        <p>Монгол дахь албан ёсны дистрибьютор Zak Adidas компани нь 2010 оноос хойш дэлхийн шилдэг брэндийг эх орныхоо хэрэглэгчдэд чанарын өндөр түвшинд хүргэсээр ирлээ.</p>
+        <div class="about-quote">
+          <p>"Impossible is Nothing буюу Бүтэшгүй зүйл гэж үгүй хэмээх уриа бол бидний өдөр тутмын ажлын гол хөдөлгөгч хүч юм."</p>
+        </div>
+        <p>Бид зөвхөн хувцас, гутал худалдаалдаггүй, харин эрүүл идэвхтэй амьдралын хэв маяг, спортын соёлыг түгээн дэлгэрүүлэгч нь билээ.</p>
+      </div>
+      <div class="about-imgs">
+        <div class="about-img-main" style="background-image: url('jen.jpg');"></div>
+        <div class="about-img-row">
+          <div class="about-img-sm" style="background-image: url('mgl.jpg');"></div>
+          <div class="about-img-sm" style="background-image: url('dav.jpg');"></div>
+        </div>
+      </div>
+    </div>
+
+    <div style="margin-top: 5rem;">
+      <div class="sec-label">Тусламж</div>
+      <h2 class="sec-title">Түгээмэл Асуултууд</h2>
+      <div class="faq-list">
+        <div class="faq-item">
+          <div class="faq-hdr" onclick="toggleFaq(this)">
+            <h4>Бүтээгдэхүүнүүд 100% оригинал уу?</h4>
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-body"><p>Тийм, манай бүх бүтээгдэхүүн БНХУ-ын Adidas брэндийн үйлдвэрээс шууд нийлүүлэгддэг 100% оригинал бөгөөд чанарын баталгаатай.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-hdr" onclick="toggleFaq(this)">
+            <h4>Хүргэлт хэр хугацаанд хийгддэг вэ?</h4>
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-body"><p>Улаанбаатар хот дотор захиалга баталгаажсанаас хойш 1-2 хоногийн дотор хүргэгдэнэ. Хөдөө орон нутгийн унаанд тавьж өгөх боломжтой.</p></div>
+        </div>
+        <div class="faq-item">
+          <div class="faq-hdr" onclick="toggleFaq(this)">
+            <h4>Хэмжээ таарахгүй бол сольж болох уу?</h4>
+            <div class="faq-icon">+</div>
+          </div>
+          <div class="faq-body"><p>Тийм ээ, та шошгыг нь салгаагүй, өмсөж хэрэглээгүй тохиолдолд 3 хоногийн дотор өөр хэмжээгээр солих эсвэл буцаах эрхтэй.</p></div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<footer class="footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div class="footer-brand">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/2/20/Adidas_Logo.svg" alt="Adidas" style="height:26px; filter:invert(1);"/>
+        <p>Adidas Mongolia албан ёсны онлайн дэлгүүр. Чанартай бөгөөд 100% оригинал бүтээгдэхүүнийг танд хүргэнэ.</p>
+      </div>
+      <div>
+        <h5>Цуглуулгууд</h5>
+        <ul>
+          <li><a onclick="showPage('products');setTab('men')">Эрэгтэй</a></li>
+          <li><a onclick="showPage('products');setTab('women')">Эмэгтэй</a></li>
+          <li><a onclick="showPage('products');setTab('originals')">Originals</a></li>
+        </ul>
+      </div>
+      <div>
+        <h5>Хэрэглэгчид</h5>
+        <ul>
+          <li><a href="#">Хүргэлтийн журам</a></li>
+          <li><a href="#">Буцаах нөхцөл</a></li>
+          <li><a href="#">Түгээмэл асуултууд</a></li>
+        </ul>
+      </div>
+      <div class="footer-contact">
+        <h5>Холбоо барих</h5>
+        <p>Утас: +976 94665594</p>
+        <p>Хаяг: Улаанбаатар хот, Монгол улс</p>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>&copy; 2026 Adidas Mongolia. Бүх эрх хуулиар хамгаалагдсан.</p>
+    </div>
+  </div>
+</footer>
+
+<script>
+  // ── PAGE MANAGEMENT ──
+  function showPage(pageId) {
+    document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+    const activePage = document.getElementById('page-' + pageId);
+    if(activePage) activePage.classList.add('active');
+    
+    document.querySelectorAll('.nav-links a').forEach(link => {
+      if(link.getAttribute('data-page') === pageId) link.classList.add('active');
+      else link.classList.remove('active');
+    });
+    window.scrollTo({top: 0, behavior: 'smooth'});
+    
+    // Гар утасны цэсийг хаах
+    document.getElementById('navLinks').classList.remove('open');
+    document.getElementById('hamburger').classList.remove('open');
+  }
+
+  // ── TAB MANAGEMENT ──
+  function setTab(tabName) {
+    document.querySelectorAll('.tab-btn').forEach(btn => {
+      if(btn.getAttribute('data-tab') === tabName) btn.classList.add('active');
+      else btn.classList.remove('active');
+    });
+    document.querySelectorAll('.tab-panel').forEach(panel => {
+      if(panel.id === 'tab-' + tabName) panel.classList.add('active');
+      else panel.classList.remove('active');
+    });
+  }
+
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', function() {
+      setTab(this.getAttribute('data-tab'));
+    });
+  });
+
+  // ── HAMBURGER MENU ──
+  document.getElementById('hamburger').addEventListener('click', function() {
+    this.classList.toggle('open');
+    document.getElementById('navLinks').classList.toggle('open');
+  });
+
+  // ── CAROUSEL (SLIDER) ──
+  const track = document.getElementById('cTrack');
+  const prevBtn = document.getElementById('cPrev');
+  const nextBtn = document.getElementById('cNext');
+  const dotsContainer = document.getElementById('cDots');
+  let currentSlide = 0;
+  const totalSlides = 4;
+
+  for (let i = 0; i < totalSlides; i++) {
+    const dot = document.createElement('button');
+    dot.classList.add('c-dot');
+    if (i === 0) dot.classList.add('active');
+    dot.addEventListener('click', () => updateSlider(i));
+    dotsContainer.appendChild(dot);
+  }
+
+  function updateSlider(index) {
+    currentSlide = index;
+    if (currentSlide >= totalSlides) currentSlide = 0;
+    if (currentSlide < 0) currentSlide = totalSlides - 1;
+    track.style.transform = `translateX(-${currentSlide * 100}%)`;
+    
+    document.querySelectorAll('.c-dot').forEach((dot, idx) => {
+      if (idx === currentSlide) dot.classList.add('active');
+      else dot.classList.remove('active');
+    });
+  }
+
+  nextBtn.addEventListener('click', () => updateSlider(currentSlide + 1));
+  prevBtn.addEventListener('click', () => updateSlider(currentSlide - 1));
+  setInterval(() => updateSlider(currentSlide + 1), 6000);
+
+  // ── TOAST NOTIFICATION ──
+  function addToCart(itemName) {
+    const toast = document.getElementById('toast');
+    toast.innerText = itemName + " сагсанд нэмэгдлээ!";
+    toast.classList.add('show');
+    setTimeout(() => toast.classList.remove('show'), 2500);
+  }
+
+  // ── FAQ TOGGLE ──
+  function toggleFaq(header) {
+    const item = header.parentElement;
+    item.classList.toggle('open');
+  }
+
+  // ── AJAX SPORTS NEWS ──
+  const mockNews = [
+    { cat: "Гүйлт", title: "Ultraboost 5 технологийн шинэчлэл", desc: "Шинэ улны материал нь эрчим хүчийг 20% илүү буцаан олгодог болжээ.", date: "2026-05-20" },
+    { cat: "Загвар", title: "Samba OG хит хэвээр байна", desc: "Дэлхийн алдартнууд өдөр тутмын стильдээ Samba-г сонгосоор байна.", date: "2026-05-18" },
+    { cat: "Спорт", title: "Predator 24: Агуу тоглогчдын сонголт", desc: "Хөлбөмбөгийн талбай дээрх бөмбөгний хяналтыг шинэ шатанд гаргав.", date: "2026-05-15" }
+  ];
+
+  document.getElementById('ajaxLoad').addEventListener('click', () => {
+    const spinner = document.getElementById('ajaxSpinner');
+    const msg = document.getElementById('ajaxMsg');
+    const container = document.getElementById('newsContainer');
+    
+    msg.style.display = 'none';
+    spinner.style.display = 'block';
+    container.innerHTML = '';
+
+    setTimeout(() => {
+      spinner.style.display = 'none';
+      mockNews.forEach(item => {
+        const card = document.createElement('div');
+        card.classList.add('news-card');
+        card.innerHTML = `
+          <div class="news-card-img" style="background:#222;color:#fff;padding:2rem;text-align:center;">📰</div>
+          <div class="news-card-body">
+            <span class="news-cat">${item.cat}</span>
+            <h4>${item.title}</h4>
+            <p>${item.desc}</p>
+            <div class="news-date">${item.date}</div>
+          </div>
+        `;
+        container.appendChild(card);
+      });
+    }, 1000);
+  });
+
+  document.getElementById('ajaxClear').addEventListener('click', () => {
+    document.getElementById('newsContainer').innerHTML = '';
+    document.getElementById('ajaxMsg').style.display = 'block';
+  });
+
+  // Header scroll эффект
+  window.addEventListener('scroll', () => {
+    const header = document.getElementById('header');
+    if (window.scrollY > 50) header.classList.add('scrolled');
+    else header.classList.remove('scrolled');
+  });
+</script>
+</body>
+</html>
